@@ -1,4 +1,6 @@
 class Public::ReservationsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authenticate_admin!
   before_action :set_reservation, only: %i[ show edit update destroy ]
 
   # GET /reservations or /reservations.json
