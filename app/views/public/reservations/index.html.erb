@@ -32,7 +32,34 @@
 <br>
 
 <%= month_calendar events: @reservations do |date, reservations| %>
-  <%= date.strftime('%m/%d') %>
+  <%= link_to new_reservation_path do %>
+    <div>
+      <%= date.strftime('%-d') %>
+    </div>
+  <% end %>
+
+  <% if admin_signed_in? %>
+    <% reservations.each do |reservation| %>
+      <div>
+        <%= reservation.start_time.hour %>:<%= reservation.start_time.min %>
+        <%= reservation.name %>
+      </div>
+    <% end %>
+  <% else %>
+    <% unless reservations.count == 0 %>
+      <div>
+        <%= reservations.count %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= week_calendar events: @reservations do |date, reservations| %>
+  <%= link_to new_reservation_path do %>
+    <div>
+      <%= date.strftime('%-d') %>
+    </div>
+  <% end %>
 
   <% if admin_signed_in? %>
     <% reservations.each do |reservation| %>
